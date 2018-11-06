@@ -21,7 +21,9 @@
 #'
 #'   }
 #'
-#'   See <doi:10.1145/2133360.2133363> for more details
+#'   See <doi:10.1145/2133360.2133363> for more details.
+#'
+#'   The predict method supports parallelism via \pkg{future}s.
 #' @return Two outputs depending on type argument: \itemize{
 #'
 #'   \item anomaly_score: A vector(length of number of observations in the data)
@@ -111,10 +113,11 @@ depth_corrected <- function(object, newdata){
   }
 
   corrected_depths <-
-    do.call(cbind
-            , lapply(
-              1:num_trees
-              , function(x) as.numeric(get_corrected_depths(x)[as.character(tnm[, x])])
+    do.call(
+      cbind
+      , furrr::future_map( #lapply(
+          1:num_trees
+          , function(x) as.numeric(get_corrected_depths(x)[as.character(tnm[, x])])
             )
     )
 

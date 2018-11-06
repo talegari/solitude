@@ -50,7 +50,9 @@ The following types of prediction are supported: \itemize{
 
   }
 
-  See <doi:10.1145/2133360.2133363> for more details
+  See <doi:10.1145/2133360.2133363> for more details.
+
+  The predict method supports parallelism via \pkg{future}s.
 }
 \examples{
 set.seed(100)
