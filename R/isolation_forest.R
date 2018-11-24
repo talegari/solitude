@@ -20,7 +20,16 @@ isolation_forest <- function(dataset, ...){
   while(deparse(substitute(responseName)) %in% columnNames){
     responseName <- sample(c(letters, LETTERS), 20, replace = TRUE)
   }
-  dataset[[deparse(substitute(responseName))]] <- 1:nrow(dataset)
+
+  arguments <- list(...)
+  if("seed" %in% names(arguments)){
+    seed <- arguments[["seed"]]
+  } else {
+    seed <- sample.int(1e5, 1)
+  }
+
+  set.seed(seed)
+  dataset[[deparse(substitute(responseName))]] <- sample.int(nrow(dataset))
 
   # build a isolation forest
   iso <- ranger::ranger(
