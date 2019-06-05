@@ -4,7 +4,7 @@
 \alias{anomaly_score}
 \title{anomaly_score}
 \usage{
-anomaly_score(object, newdata, aggregator = "median")
+anomaly_score(object, newdata, aggregator = "median", ...)
 }
 \arguments{
 \item{object}{isolation forest model}
@@ -12,6 +12,9 @@ anomaly_score(object, newdata, aggregator = "median")
 \item{newdata}{dataframe to predict}
 
 \item{aggregator}{aggregator}
+
+\item{...}{Arguments to be passed to future.apply::future_lapply in
+'depth_corrected'}
 }
 \description{
 anomaly_score

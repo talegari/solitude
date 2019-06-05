@@ -18,7 +18,8 @@
 corrected depths per observation over all trees. This is applicable when
 type is anomaly_score}
 
-\item{...}{Ignored}
+\item{...}{Arguments to be passed to future.apply::future_lapply when future
+backend is setup}
 }
 \value{
 Two outputs depending on type argument: \itemize{

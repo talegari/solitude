@@ -1,7 +1,7 @@
 ---
 title: "Solitude"
-author: Srikanth KS
-output: html_document
+author: "Srikanth KS"
+output: md_document
 ---
 
 ----
@@ -30,7 +30,7 @@ BostonX <- Boston %>% select(-medv)
 
 ```{r}
 # grow an isolation forest
-iso_Boston <- isolation_forest(BostonX, seed = 100, num.trees = 1e3)
+iso_Boston <- isolationForest(BostonX, seed = 100, num.trees = 1e3)
 
 # predict anomaly scores (parallelizable using futures)
 scores <- predict(iso_Boston, BostonX, type = "anomaly_score")
@@ -48,9 +48,6 @@ By observing the quantiles, we might arrive at the a threshold on the anomaly sc
 ```{r}
 # quantiles of anomaly scores
 quantile(scores, probs = seq(0.5, 1, length.out = 11))
-
-# visualize depths
-image(depths)
 ```
 
 The understanding of *why is an observation an anomaly* might require a combination of domain understanding and techniques like lime (Local Interpretable Model-agnostic Explanations), Rule based systems etc
