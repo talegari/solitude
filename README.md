@@ -4,9 +4,8 @@ Introduction
 ------------
 
 The R package implements **Isolation forest**, an anomaly detection
-method introduced by the paper Isolation based Anomaly Detection (Liu,
-Ting and Zhou
-<a href="doi:10.1145/2133360.2133363" class="uri">doi:10.1145/2133360.2133363</a>).
+method introduced by the paper Isolation based Anomaly Detection ([Liu,
+Ting and Zhou](https://dl.acm.org/citation.cfm?id=2133363)).
 
 Isolation forest is grown using
 [ranger](https://cran.r-project.org/package=ranger) package and it is
