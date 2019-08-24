@@ -6,7 +6,7 @@
 \alias{solitude-package}
 \title{An Implementation of Isolation Forest}
 \description{
-Isolation forest is anomaly detection method introduced by the paper Isolation based Anomaly Detection (Liu, Ting and Zhou <doi:10.1145/2133360.2133363>)
+Isolation forest is an anomaly detection method introduced by the paper Isolation based Anomaly Detection (Liu, Ting and Zhou <doi:10.1145/2133360.2133363>)
 }
 \seealso{
 Useful links:

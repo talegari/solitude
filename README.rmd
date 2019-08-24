@@ -4,13 +4,15 @@ author: "Srikanth KS"
 output: md_document
 ---
 
+# Solitude
+
 ----
 
 ## Introduction
 
 The R package implements **Isolation forest**, an anomaly detection method introduced by the paper Isolation based Anomaly Detection ([Liu, Ting and Zhou](https://dl.acm.org/citation.cfm?id=2133363)).
 
-Isolation forest is grown using [ranger](https://cran.r-project.org/package=ranger) package and it is possible to **experiment with the variants** of classical isolation forest ex: weighing covariates(features) and observations.
+Isolation forest is grown using [ranger](https://cran.r-project.org/package=ranger) package.
 
 
 ```{r setup, include=FALSE}
@@ -20,23 +22,22 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Usage
 
 ```{r}
-suppressPackageStartupMessages(library("dplyr"))
 suppressPackageStartupMessages(library("solitude"))
-data("Boston", package = "MASS")
-dplyr::glimpse(Boston)
-BostonX <- Boston %>% select(-medv)
+data("attrition", package = "rsample")
+str(attrition)
+attritionX <- attrition[, setdiff(colnames(attrition), "Attrition")]
 ```
 
 
 ```{r}
-# grow an isolation forest
-iso_Boston <- isolationForest(BostonX, seed = 100, num.trees = 1e3)
+# initiate an isolation forest
+iso <- isolationForest$new()
 
-# predict anomaly scores (parallelizable using futures)
-scores <- predict(iso_Boston, BostonX, type = "anomaly_score")
+# fit for attrition data
+iso$fit(attritionX)
 
-# predict corrected depths
-depths <- predict(iso_Boston, BostonX, type = "depth_corrected")
+# Obtain anomaly scores
+print(iso$scores)
 ```
 
 ## Anomaly detection
@@ -47,7 +48,9 @@ By observing the quantiles, we might arrive at the a threshold on the anomaly sc
 
 ```{r}
 # quantiles of anomaly scores
-quantile(scores, probs = seq(0.5, 1, length.out = 11))
+quantile(iso$scores$anomaly_score
+         , probs = seq(0.5, 1, length.out = 11)
+         )
 ```
 
 The understanding of *why is an observation an anomaly* might require a combination of domain understanding and techniques like lime (Local Interpretable Model-agnostic Explanations), Rule based systems etc
