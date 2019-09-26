@@ -10,11 +10,11 @@ terminalNodesDepthPerTree(treelike)
 \item{treelike}{Output of `ranger::treeInfo`}
 }
 \value{
-Named vector of depths where the names are the terminal node IDs
+data.table with two columns: id_node and depth
 }
 \description{
 Depth of each terminal node of a single tree in a ranger model.
-  Note that root node has the node_id = 0.
+  Note that root node has the id_node = 0.
 }
 \examples{
 \dontrun{

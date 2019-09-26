@@ -1,3 +1,8 @@
+# solitude 0.2.1
+
+- added 'mtry' argument for isolationForest method
+- minor optimizations in 'terminalNodesDepth' fuction
+
 # solitude 0.2.0
 
 - Changes in API: `isolationForest` is now a R6 class with new(), fit() and predict() methods.

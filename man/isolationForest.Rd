@@ -21,23 +21,28 @@ isolationForest
 
   \itemize{
 
-  \item \code{sample_fraction}: (between 0(exclusive) and 1(inclusive),
-  default = 1) Fraction of observations in the dataset to used to build the
-  forest
+  \item \code{sample_size}: (positive integer, default = 256) Number of
+  observations in the dataset to used to build a tree in  the forest
 
   \item \code{num_trees}: (positive integer, default = 100) Number of trees
   to be built in the forest
 
-  \item \code{replace}: (boolean) Whether the sample of observations should
-  be chosen with replacement when sample_fraction < 1
+  \item \code{mtry}: (positive integer, default = 1) Number of variables to
+  be selected at each node of a tree. Random cut points are chosen for each
+  variable and most optimal among them is chosen
 
-  \item \code{seed}: (positive integer) Random seed for the forest
+  \item \code{replace}: (boolean, default = FALSE) Whether the sample of
+  observations should be chosen with replacement when sample_size is less
+  than the number of observations in the dataset
 
-  \item \code{nproc}: (NULL or positive integer, default: Use all resources)
-  Number of parallel threads to be used by ranger
+  \item \code{seed}: (positive integer, default = 101) Random seed for the
+  forest
 
-  \item \code{respect_unordered_factors}: See respect.unordered.factors
-  argument in \code{\link[ranger]{ranger}}
+  \item \code{nproc}: (NULL or a positive integer, default: NULL, means use
+  all resources) Number of parallel threads to be used by ranger
+
+  \item \code{respect_unordered_factors}: (string, default: "partition")See
+  respect.unordered.factors argument in \code{\link[ranger]{ranger}}
 
   }
 
