@@ -4,15 +4,17 @@ author: "Srikanth KS"
 output: md_document
 ---
 
-# Solitude
+# Using solitude for anomaly detection
+
+- Srikanth Komala Sheshachala
 
 ----
 
 ## Introduction
 
-The R package implements **Isolation forest**, an anomaly detection method introduced by the paper Isolation based Anomaly Detection ([Liu, Ting and Zhou](https://dl.acm.org/citation.cfm?id=2133363)).
+The R package implements **Isolation forest**, an anomaly detection method introduced by the paper Isolation based Anomaly Detection ([Liu, Ting and Zhou](https://dl.acm.org/citation.cfm?id=2133363)). Isolation forest is grown using [ranger](https://cran.r-project.org/package=ranger) package.
 
-Isolation forest is grown using [ranger](https://cran.r-project.org/package=ranger) package.
+‘Isolation forest’ is a multivariate outlier detection technique for IID data containing a mix of numeric and categorical variables.
 
 
 ```{r setup, include=FALSE}
@@ -22,22 +24,33 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Usage
 
 ```{r}
-suppressPackageStartupMessages(library("solitude"))
-data("attrition", package = "rsample")
-str(attrition)
-attritionX <- attrition[, setdiff(colnames(attrition), "Attrition")]
+library("solitude")
+
+data("humus", package = "mvoutlier")
+columns_required = setdiff(colnames(humus)
+                           , c("Cond", "ID", "XCOO", "YCOO", "LOI")
+                           )
+humus2 = humus[ , columns_required]
+str(humus2)
+set.seed(1)
+index = sample(ceiling(nrow(humus2) * 0.5))
 ```
 
 
 ```{r}
 # initiate an isolation forest
-iso <- isolationForest$new()
+iso = isolationForest$new(sample_size = length(index))
 
 # fit for attrition data
-iso$fit(attritionX)
+iso$fit(humus2[index, ])
 
 # Obtain anomaly scores
-print(iso$scores)
+scores_train = iso$predict(humus2[index, ])
+scores_train[order(anomaly_score, decreasing = TRUE)]
+
+# predict scores for unseen data (50% sample)
+scores_unseen = iso$predict(humus2[-index, ])
+scores_unseen[order(anomaly_score, decreasing = TRUE)]
 ```
 
 ## Anomaly detection
@@ -48,7 +61,7 @@ By observing the quantiles, we might arrive at the a threshold on the anomaly sc
 
 ```{r}
 # quantiles of anomaly scores
-quantile(iso$scores$anomaly_score
+quantile(scores_unseen$anomaly_score
          , probs = seq(0.5, 1, length.out = 11)
          )
 ```
