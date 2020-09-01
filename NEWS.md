@@ -1,3 +1,10 @@
+# solitude 1.1.0
+
+- fit exposes max_depth parameter with default value of ceiling(log_2(sample_size))
+- path length extension is not done anymore (Thanks to karthi1870)
+- ranger's forest object is now public
+- fit checks for duplicates in the input dataset
+
 # solitude 1.0.1
 
 - finalized on the API

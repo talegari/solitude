@@ -35,6 +35,10 @@
   \item \code{respect_unordered_factors}: (string, default: "partition")See
   respect.unordered.factors argument in \code{\link[ranger]{ranger}}
 
+  \item \code{max_depth}: (positive number, default:
+  ceiling(log2(sample_size))) See max.depth argument in
+  \code{\link[ranger]{ranger}}
+
   }
 
   \code{$fit()} fits a isolation forest for the given dataframe, computes
@@ -93,7 +97,8 @@ iso$predict(humus2[-index, ]) # scores for new data (50\% sample)
   replace = FALSE,
   seed = 101,
   nproc = NULL,
-  respect_unordered_factors = NULL
+  respect_unordered_factors = NULL,
+  max_depth = ceiling(log2(sample_size))
 )}\if{html}{\out{</div>}}
 }
 

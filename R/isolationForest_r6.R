@@ -29,6 +29,10 @@
 #'   \item \code{respect_unordered_factors}: (string, default: "partition")See
 #'   respect.unordered.factors argument in \code{\link[ranger]{ranger}}
 #'
+#'   \item \code{max_depth}: (positive number, default:
+#'   ceiling(log2(sample_size))) See max.depth argument in
+#'   \code{\link[ranger]{ranger}}
+#'
 #'   }
 #'
 #'   \code{$fit()} fits a isolation forest for the given dataframe, computes
@@ -95,7 +99,8 @@ isolationForest = R6::R6Class(
     , seed                      = NULL
     , nproc                     = NULL
     , respect_unordered_factors = NULL
-
+    , max_depth                 = NULL
+    , forest                    = NULL
     , scores = NULL
     , status = "not_initialized"
     ,
@@ -106,6 +111,7 @@ isolationForest = R6::R6Class(
                           , seed                      = 101
                           , nproc                     = NULL
                           , respect_unordered_factors = NULL
+                          , max_depth                 = ceiling(log2(sample_size))
                           ){
 
       stopifnot(is_integerish(sample_size) && length(sample_size) == 1)
@@ -121,7 +127,10 @@ isolationForest = R6::R6Class(
                   (is.character(respect_unordered_factors) &&
                   length(respect_unordered_factors) == 1)
                 )
-
+      stopifnot(is_integerish(max_depth) &&
+                length(max_depth) == 1 &&
+                max_depth > 0
+                )
 
       self$sample_size               = sample_size
       self$num_trees                 = num_trees
@@ -129,11 +138,16 @@ isolationForest = R6::R6Class(
       self$seed                      = seed
       self$nproc                     = nproc
       self$respect_unordered_factors = respect_unordered_factors
-
+      self$max_depth                 = max_depth
       self$status = "not_trained"
     }
     ,
     fit = function(dataset){
+
+      # check if any rows are duplicated
+      if (anyDuplicated(dataset) > 0){
+        stop("dataset should not have duplicated rows")
+      }
 
       # create new fit
       if(self$status == "trained"){
@@ -157,7 +171,7 @@ isolationForest = R6::R6Class(
 
       # build a extratrees forest
       lgr::lgr$info("Building Isolation Forest ... ")
-      private$forest = ranger::ranger(
+      self$forest = ranger::ranger(
         dependent.variable.name     = deparse(substitute(responseName))
         , data                      = dataset
         , mtry                      = ncol(dataset) - 1L
@@ -170,19 +184,20 @@ isolationForest = R6::R6Class(
         , respect.unordered.factors = self$respect_unordered_factors
         , num.threads               = self$nproc
         , seed                      = self$seed
+        , max.depth                 = self$max_depth
         )
       lgr::lgr$info("done")
 
       # compute terminal nodes depth
       lgr::lgr$info("Computing depth of terminal nodes ... ")
-      private$terminal_nodes_depth = terminalNodesDepth(private$forest)
+      private$terminal_nodes_depth = terminalNodesDepth(self$forest)
       lgr::lgr$info("done")
 
       # set phi -- sample size used for tree building
       private$phi = floor(private$sample_fraction * nr)
 
       # create path length extend dataframe
-      tnm = stats::predict(private$forest
+      tnm = stats::predict(self$forest
                            , dataset
                            , type        = "terminalNodes"
                            , num.threads = self$nproc
@@ -203,12 +218,6 @@ isolationForest = R6::R6Class(
       tnm[, id_tree := as.integer(id_tree)]
       tnm[, id_node := as.integer(id_node)]
 
-      # create extra path length when terminal nodes are not singletons
-      private$path_length_extend = tnm[ , .N, c("id_tree", "id_node")]
-      private$path_length_extend[
-        , extend := vapply(N, private$pathLengthNormalizer, numeric(1))
-        ]
-
       # update train status
       self$status = "trained"
       lgr::lgr$info("Completed growing isolation forest")
@@ -216,7 +225,7 @@ isolationForest = R6::R6Class(
     ,
     predict = function(data){
 
-      tnm = stats::predict(private$forest
+      tnm = stats::predict(self$forest
                            , data
                            , type        = "terminalNodes"
                            , num.threads = self$nproc
@@ -242,14 +251,6 @@ isolationForest = R6::R6Class(
                         , by = c("id_tree", "id_node")
                         )
 
-      # extend length depending on terminal node
-      obs_depth = merge(obs_depth
-                        , private$path_length_extend
-                        , by = c("id_tree", "id_node")
-                        )
-      obs_depth[ , depth := depth + extend]
-      obs_depth[ , c("N", "extend") := NULL]
-
       average_depth = NULL
       depth         = NULL
       id            = NULL
@@ -266,11 +267,9 @@ isolationForest = R6::R6Class(
   ,
   private = list(
 
-    forest                       = NULL
-    , terminal_nodes_depth       = NULL
-    , phi                        = NULL
-    , path_length_extend         = NULL
-    , sample_fraction            = NULL
+    terminal_nodes_depth       = NULL
+    , phi                      = NULL
+    , sample_fraction          = NULL
     ,
     pathLengthNormalizer = function(phi){
 

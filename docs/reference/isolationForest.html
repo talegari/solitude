@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">solitude</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -148,6 +148,9 @@
   all resources) Number of parallel threads to be used by ranger</p></li>
 <li><p><code>respect_unordered_factors</code>: (string, default: "partition")See
   respect.unordered.factors argument in <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger</a></code></p></li>
+<li><p><code>max_depth</code>: (positive number, default:
+  ceiling(log2(sample_size))) See max.depth argument in
+  <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger</a></code></p></li>
 </ul>
 
 <p><code>$fit()</code> fits a isolation forest for the given dataframe, computes
@@ -188,7 +191,8 @@
   <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>101</span>,
   <span class='kw'>nproc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>respect_unordered_factors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>respect_unordered_factors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log2</a></span>(<span class='no'>sample_size</span>))
 )</pre><p></div></p>
 
 <p><hr>
@@ -265,33 +269,33 @@
 <span class='no'>index</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>humus2</span>) * <span class='fl'>0.5</span>))
 <span class='co'># initiate an isolation forest</span>
 <span class='no'>iso</span> <span class='kw'>=</span> <span class='no'>isolationForest</span>$<span class='fu'>new</span>(<span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>index</span>))
-<span class='no'>iso</span>$<span class='fu'>fit</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>humus2</span>[<span class='no'>index</span>, ])</div><div class='output co'>#&gt; INFO  [23:27:29.020] Building Isolation Forest ...  
-#&gt; INFO  [23:27:29.228] done 
-#&gt; INFO  [23:27:29.237] Computing depth of terminal nodes ...  
-#&gt; INFO  [23:27:29.685] done 
-#&gt; INFO  [23:27:29.756] Completed growing isolation forest </div><div class='input'><span class='no'>iso</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>humus2</span>[<span class='no'>index</span>, ]) <span class='co'># scores for train data</span></div><div class='output co'>#&gt;       id average_depth anomaly_score
-#&gt;   1:   1         14.87     0.3789179
-#&gt;   2:   2         20.91     0.2554793
-#&gt;   3:   3         14.00     0.4010543
-#&gt;   4:   4         15.81     0.3563716
-#&gt;   5:   5         19.25     0.2847111
+<span class='no'>iso</span>$<span class='fu'>fit</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>humus2</span>[<span class='no'>index</span>, ])</div><div class='output co'>#&gt; INFO  [08:44:20.472] Building Isolation Forest ...  
+#&gt; INFO  [08:44:20.818] done 
+#&gt; INFO  [08:44:20.827] Computing depth of terminal nodes ...  
+#&gt; INFO  [08:44:21.228] done 
+#&gt; INFO  [08:44:21.247] Completed growing isolation forest </div><div class='input'><span class='no'>iso</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>humus2</span>[<span class='no'>index</span>, ]) <span class='co'># scores for train data</span></div><div class='output co'>#&gt;       id average_depth anomaly_score
+#&gt;   1:   1          8.78     0.5638346
+#&gt;   2:   2          8.99     0.5561600
+#&gt;   3:   3          8.68     0.5675263
+#&gt;   4:   4          8.81     0.5627318
+#&gt;   5:   5          8.98     0.5565231
 #&gt;  ---                                
-#&gt; 305: 305         19.83     0.2741358
-#&gt; 306: 306         18.79     0.2933878
-#&gt; 307: 307         16.72     0.3358236
-#&gt; 308: 308          8.52     0.5734834
-#&gt; 309: 309          6.87     0.6386842</div><div class='input'><span class='no'>iso</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>humus2</span>[-<span class='no'>index</span>, ]) <span class='co'># scores for new data (50% sample)</span></div><div class='output co'>#&gt;       id average_depth anomaly_score
-#&gt;   1:   1         14.09     0.3987056
-#&gt;   2:   2         12.35     0.4466512
-#&gt;   3:   3         14.99     0.3759621
-#&gt;   4:   4         15.32     0.3679518
-#&gt;   5:   5         16.97     0.3303890
+#&gt; 305: 305          8.99     0.5561600
+#&gt; 306: 306          9.00     0.5557972
+#&gt; 307: 307          8.99     0.5561600
+#&gt; 308: 308          7.27     0.6222274
+#&gt; 309: 309          6.07     0.6729151</div><div class='input'><span class='no'>iso</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>humus2</span>[-<span class='no'>index</span>, ]) <span class='co'># scores for new data (50% sample)</span></div><div class='output co'>#&gt;       id average_depth anomaly_score
+#&gt;   1:   1          8.25     0.5836780
+#&gt;   2:   2          8.23     0.5844403
+#&gt;   3:   3          8.81     0.5627318
+#&gt;   4:   4          8.57     0.5716151
+#&gt;   5:   5          8.92     0.5587066
 #&gt;  ---                                
-#&gt; 304: 304         10.48     0.5046256
-#&gt; 305: 305         13.38     0.4176146
-#&gt; 306: 306          9.06     0.5536251
-#&gt; 307: 307         16.64     0.3375815
-#&gt; 308: 308         19.01     0.2892056</div></pre>
+#&gt; 304: 304          7.95     0.5952181
+#&gt; 305: 305          8.81     0.5627318
+#&gt; 306: 306          6.77     0.6428659
+#&gt; 307: 307          8.94     0.5579778
+#&gt; 308: 308          8.77     0.5642027</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -24,8 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Usage
 
 ```{r}
-library("solitude")
-
+#library("solitude")
 data("humus", package = "mvoutlier")
 columns_required = setdiff(colnames(humus)
                            , c("Cond", "ID", "XCOO", "YCOO", "LOI")
@@ -40,14 +39,11 @@ index = sample(ceiling(nrow(humus2) * 0.5))
 ```{r}
 # initiate an isolation forest
 iso = isolationForest$new(sample_size = length(index))
-
 # fit for attrition data
 iso$fit(humus2[index, ])
-
 # Obtain anomaly scores
 scores_train = iso$predict(humus2[index, ])
 scores_train[order(anomaly_score, decreasing = TRUE)]
-
 # predict scores for unseen data (50% sample)
 scores_unseen = iso$predict(humus2[-index, ])
 scores_unseen[order(anomaly_score, decreasing = TRUE)]
