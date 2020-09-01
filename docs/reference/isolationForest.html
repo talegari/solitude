@@ -269,11 +269,11 @@
 <span class='no'>index</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>humus2</span>) * <span class='fl'>0.5</span>))
 <span class='co'># initiate an isolation forest</span>
 <span class='no'>iso</span> <span class='kw'>=</span> <span class='no'>isolationForest</span>$<span class='fu'>new</span>(<span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>index</span>))
-<span class='no'>iso</span>$<span class='fu'>fit</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>humus2</span>[<span class='no'>index</span>, ])</div><div class='output co'>#&gt; INFO  [08:44:20.472] Building Isolation Forest ...  
-#&gt; INFO  [08:44:20.818] done 
-#&gt; INFO  [08:44:20.827] Computing depth of terminal nodes ...  
-#&gt; INFO  [08:44:21.228] done 
-#&gt; INFO  [08:44:21.247] Completed growing isolation forest </div><div class='input'><span class='no'>iso</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>humus2</span>[<span class='no'>index</span>, ]) <span class='co'># scores for train data</span></div><div class='output co'>#&gt;       id average_depth anomaly_score
+<span class='no'>iso</span>$<span class='fu'>fit</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>humus2</span>[<span class='no'>index</span>, ])</div><div class='output co'>#&gt; INFO  [09:23:34.970] Building Isolation Forest ...  
+#&gt; INFO  [09:23:35.313] done 
+#&gt; INFO  [09:23:35.323] Computing depth of terminal nodes ...  
+#&gt; INFO  [09:23:35.730] done 
+#&gt; INFO  [09:23:35.749] Completed growing isolation forest </div><div class='input'><span class='no'>iso</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>humus2</span>[<span class='no'>index</span>, ]) <span class='co'># scores for train data</span></div><div class='output co'>#&gt;       id average_depth anomaly_score
 #&gt;   1:   1          8.78     0.5638346
 #&gt;   2:   2          8.99     0.5561600
 #&gt;   3:   3          8.68     0.5675263

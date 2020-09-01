@@ -24,7 +24,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Usage
 
 ```{r}
-#library("solitude")
+library("solitude")
+packageVersion("solitude")
 data("humus", package = "mvoutlier")
 columns_required = setdiff(colnames(humus)
                            , c("Cond", "ID", "XCOO", "YCOO", "LOI")

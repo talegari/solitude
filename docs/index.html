@@ -86,103 +86,105 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">"solitude"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">data</span>(<span class="st">"humus"</span>, <span class="dt">package =</span> <span class="st">"mvoutlier"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>columns_required =<span class="st"> </span><span class="kw">setdiff</span>(<span class="kw">colnames</span>(humus)</span>
-<span id="cb1-5"><a href="#cb1-5"></a>                           , <span class="kw">c</span>(<span class="st">"Cond"</span>, <span class="st">"ID"</span>, <span class="st">"XCOO"</span>, <span class="st">"YCOO"</span>, <span class="st">"LOI"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6"></a>                           )</span>
-<span id="cb1-7"><a href="#cb1-7"></a>humus2 =<span class="st"> </span>humus[ , columns_required]</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">str</span>(humus2)</span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co">## 'data.frame':    617 obs. of  39 variables:</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">##  $ Ag: num  0.124 0.13 0.124 0.309 0.04 0.421 0.235 0.043 0.07 0.086 ...</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co">##  $ Al: num  1420 7190 1970 6360 630 2060 1200 1510 3380 1320 ...</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co">##  $ As: num  0.743 0.973 1.1 1.24 0.533 1.54 0.836 0.657 1.75 1.04 ...</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">##  $ B : num  2.51 3.45 1.62 1.59 4.33 1.93 2.51 4.46 5.08 2.1 ...</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">##  $ Ba: num  74 65.2 121 63.5 36 111 109 24.5 42.2 51.4 ...</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co">##  $ Be: num  0.02 0.08 0.04 0.07 0.01 0.07 0.01 0.05 0.06 0.01 ...</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">##  $ Bi: num  0.108 0.084 0.137 0.135 0.076 0.176 0.145 0.075 0.259 0.112 ...</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">##  $ Ca: num  3900 1900 3240 2470 3500 3340 3010 3090 1760 2810 ...</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">##  $ Cd: num  0.298 0.39 0.295 0.222 0.214 0.327 0.294 0.18 0.295 0.284 ...</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">##  $ Co: num  1.28 3.37 0.98 3.91 0.43 4.61 0.75 0.55 1.68 1.12 ...</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">##  $ Cr: num  3.04 2.02 1.33 17 0.79 3.78 2.01 1.63 10.9 1.71 ...</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">##  $ Cu: num  10.9 12.3 5.59 29.8 6.23 47.3 8.66 5.55 10 9.25 ...</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="co">##  $ Fe: num  2050 3170 1100 6180 790 3370 1150 1800 4820 970 ...</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a><span class="co">##  $ Hg: num  0.155 0.263 0.168 0.175 0.197 0.239 0.233 0.217 0.238 0.229 ...</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a><span class="co">##  $ K : num  1100 900 1000 900 700 1200 1000 600 800 1000 ...</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a><span class="co">##  $ La: num  2.3 6.4 1.7 5.3 1.2 7 1.5 2.9 6.3 1.2 ...</span></span>
-<span id="cb1-27"><a href="#cb1-27"></a><span class="co">##  $ Mg: num  820 670 790 1180 1770 800 660 1750 820 570 ...</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a><span class="co">##  $ Mn: num  202 22.8 70.3 118 24.4 86.1 1210 16.7 39.2 115 ...</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a><span class="co">##  $ Mo: num  0.662 0.286 0.166 0.28 0.248 0.473 0.185 0.372 0.277 0.15 ...</span></span>
-<span id="cb1-30"><a href="#cb1-30"></a><span class="co">##  $ Na: num  40 120 30 150 410 60 10 320 110 50 ...</span></span>
-<span id="cb1-31"><a href="#cb1-31"></a><span class="co">##  $ Ni: num  9.41 14.8 5.05 59.5 1.98 78 5.7 2.19 11.7 13.2 ...</span></span>
-<span id="cb1-32"><a href="#cb1-32"></a><span class="co">##  $ P : num  743 1030 922 717 795 942 1120 790 779 745 ...</span></span>
-<span id="cb1-33"><a href="#cb1-33"></a><span class="co">##  $ Pb: num  15.9 13.9 19 16.3 14.3 21.7 15.2 11.6 284 14.1 ...</span></span>
-<span id="cb1-34"><a href="#cb1-34"></a><span class="co">##  $ Rb: num  8.14 2.82 4.45 8.13 2.67 5.23 4.94 2.33 4.07 5.35 ...</span></span>
-<span id="cb1-35"><a href="#cb1-35"></a><span class="co">##  $ S : num  1300 1950 1750 965 1860 1410 1880 2210 1260 1250 ...</span></span>
-<span id="cb1-36"><a href="#cb1-36"></a><span class="co">##  $ Sb: num  0.12 0.161 0.25 0.017 0.169 0.217 0.189 0.126 0.809 0.202 ...</span></span>
-<span id="cb1-37"><a href="#cb1-37"></a><span class="co">##  $ Sc: num  0.6 1.2 0.4 1.4 0.2 0.7 0.4 0.6 1.1 0.3 ...</span></span>
-<span id="cb1-38"><a href="#cb1-38"></a><span class="co">##  $ Si: num  630 640 580 690 440 530 650 490 630 560 ...</span></span>
-<span id="cb1-39"><a href="#cb1-39"></a><span class="co">##  $ Sr: num  22.2 34.4 43.4 29.2 46.4 67.9 20.7 59.1 28.8 23.2 ...</span></span>
-<span id="cb1-40"><a href="#cb1-40"></a><span class="co">##  $ Th: num  0.413 0.281 0.246 0.816 0.25 0.432 0.371 0.535 1.13 0.109 ...</span></span>
-<span id="cb1-41"><a href="#cb1-41"></a><span class="co">##  $ Tl: num  0.081 0.068 0.077 0.099 0.06 0.084 0.088 0.042 0.084 0.097 ...</span></span>
-<span id="cb1-42"><a href="#cb1-42"></a><span class="co">##  $ U : num  0.24 0.12 0.042 0.163 0.127 0.112 0.051 0.265 0.221 0.031 ...</span></span>
-<span id="cb1-43"><a href="#cb1-43"></a><span class="co">##  $ V : num  6.79 3.89 2.86 16.1 1.63 7.4 3.55 2.57 13.9 2.76 ...</span></span>
-<span id="cb1-44"><a href="#cb1-44"></a><span class="co">##  $ Y : num  0.8 2.4 0.5 1.9 0.8 1.6 0.5 1.8 1.7 0.4 ...</span></span>
-<span id="cb1-45"><a href="#cb1-45"></a><span class="co">##  $ Zn: num  59.1 18.1 67.6 43.3 41.4 46 103 21.5 23.2 38.5 ...</span></span>
-<span id="cb1-46"><a href="#cb1-46"></a><span class="co">##  $ C : num  39.9 47.5 44.2 19.4 45.8 47.8 45.7 47.3 29.5 46.8 ...</span></span>
-<span id="cb1-47"><a href="#cb1-47"></a><span class="co">##  $ H : num  5.5 6.8 6.3 3 6.1 5.8 6.5 6.4 4.4 6.5 ...</span></span>
-<span id="cb1-48"><a href="#cb1-48"></a><span class="co">##  $ N : num  1.2 1.5 1.5 0.7 1.5 1.3 1.7 1.5 0.7 1 ...</span></span>
-<span id="cb1-49"><a href="#cb1-49"></a><span class="co">##  $ pH: num  3.9 4.1 3.8 4 4.1 3.7 4 4.2 4 3.6 ...</span></span>
-<span id="cb1-50"><a href="#cb1-50"></a></span>
-<span id="cb1-51"><a href="#cb1-51"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-52"><a href="#cb1-52"></a>index =<span class="st"> </span><span class="kw">sample</span>(<span class="kw">ceiling</span>(<span class="kw">nrow</span>(humus2) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>))</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">packageVersion</span>(<span class="st">"solitude"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">## [1] '1.1.0'</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">data</span>(<span class="st">"humus"</span>, <span class="dt">package =</span> <span class="st">"mvoutlier"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a>columns_required =<span class="st"> </span><span class="kw">setdiff</span>(<span class="kw">colnames</span>(humus)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>                           , <span class="kw">c</span>(<span class="st">"Cond"</span>, <span class="st">"ID"</span>, <span class="st">"XCOO"</span>, <span class="st">"YCOO"</span>, <span class="st">"LOI"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>                           )</span>
+<span id="cb1-10"><a href="#cb1-10"></a>humus2 =<span class="st"> </span>humus[ , columns_required]</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="kw">str</span>(humus2)</span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">## 'data.frame':    617 obs. of  39 variables:</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">##  $ Ag: num  0.124 0.13 0.124 0.309 0.04 0.421 0.235 0.043 0.07 0.086 ...</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">##  $ Al: num  1420 7190 1970 6360 630 2060 1200 1510 3380 1320 ...</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">##  $ As: num  0.743 0.973 1.1 1.24 0.533 1.54 0.836 0.657 1.75 1.04 ...</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">##  $ B : num  2.51 3.45 1.62 1.59 4.33 1.93 2.51 4.46 5.08 2.1 ...</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">##  $ Ba: num  74 65.2 121 63.5 36 111 109 24.5 42.2 51.4 ...</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">##  $ Be: num  0.02 0.08 0.04 0.07 0.01 0.07 0.01 0.05 0.06 0.01 ...</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co">##  $ Bi: num  0.108 0.084 0.137 0.135 0.076 0.176 0.145 0.075 0.259 0.112 ...</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">##  $ Ca: num  3900 1900 3240 2470 3500 3340 3010 3090 1760 2810 ...</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="co">##  $ Cd: num  0.298 0.39 0.295 0.222 0.214 0.327 0.294 0.18 0.295 0.284 ...</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="co">##  $ Co: num  1.28 3.37 0.98 3.91 0.43 4.61 0.75 0.55 1.68 1.12 ...</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="co">##  $ Cr: num  3.04 2.02 1.33 17 0.79 3.78 2.01 1.63 10.9 1.71 ...</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="co">##  $ Cu: num  10.9 12.3 5.59 29.8 6.23 47.3 8.66 5.55 10 9.25 ...</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a><span class="co">##  $ Fe: num  2050 3170 1100 6180 790 3370 1150 1800 4820 970 ...</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="co">##  $ Hg: num  0.155 0.263 0.168 0.175 0.197 0.239 0.233 0.217 0.238 0.229 ...</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="co">##  $ K : num  1100 900 1000 900 700 1200 1000 600 800 1000 ...</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a><span class="co">##  $ La: num  2.3 6.4 1.7 5.3 1.2 7 1.5 2.9 6.3 1.2 ...</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="co">##  $ Mg: num  820 670 790 1180 1770 800 660 1750 820 570 ...</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a><span class="co">##  $ Mn: num  202 22.8 70.3 118 24.4 86.1 1210 16.7 39.2 115 ...</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="co">##  $ Mo: num  0.662 0.286 0.166 0.28 0.248 0.473 0.185 0.372 0.277 0.15 ...</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a><span class="co">##  $ Na: num  40 120 30 150 410 60 10 320 110 50 ...</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="co">##  $ Ni: num  9.41 14.8 5.05 59.5 1.98 78 5.7 2.19 11.7 13.2 ...</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a><span class="co">##  $ P : num  743 1030 922 717 795 942 1120 790 779 745 ...</span></span>
+<span id="cb1-36"><a href="#cb1-36"></a><span class="co">##  $ Pb: num  15.9 13.9 19 16.3 14.3 21.7 15.2 11.6 284 14.1 ...</span></span>
+<span id="cb1-37"><a href="#cb1-37"></a><span class="co">##  $ Rb: num  8.14 2.82 4.45 8.13 2.67 5.23 4.94 2.33 4.07 5.35 ...</span></span>
+<span id="cb1-38"><a href="#cb1-38"></a><span class="co">##  $ S : num  1300 1950 1750 965 1860 1410 1880 2210 1260 1250 ...</span></span>
+<span id="cb1-39"><a href="#cb1-39"></a><span class="co">##  $ Sb: num  0.12 0.161 0.25 0.017 0.169 0.217 0.189 0.126 0.809 0.202 ...</span></span>
+<span id="cb1-40"><a href="#cb1-40"></a><span class="co">##  $ Sc: num  0.6 1.2 0.4 1.4 0.2 0.7 0.4 0.6 1.1 0.3 ...</span></span>
+<span id="cb1-41"><a href="#cb1-41"></a><span class="co">##  $ Si: num  630 640 580 690 440 530 650 490 630 560 ...</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a><span class="co">##  $ Sr: num  22.2 34.4 43.4 29.2 46.4 67.9 20.7 59.1 28.8 23.2 ...</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a><span class="co">##  $ Th: num  0.413 0.281 0.246 0.816 0.25 0.432 0.371 0.535 1.13 0.109 ...</span></span>
+<span id="cb1-44"><a href="#cb1-44"></a><span class="co">##  $ Tl: num  0.081 0.068 0.077 0.099 0.06 0.084 0.088 0.042 0.084 0.097 ...</span></span>
+<span id="cb1-45"><a href="#cb1-45"></a><span class="co">##  $ U : num  0.24 0.12 0.042 0.163 0.127 0.112 0.051 0.265 0.221 0.031 ...</span></span>
+<span id="cb1-46"><a href="#cb1-46"></a><span class="co">##  $ V : num  6.79 3.89 2.86 16.1 1.63 7.4 3.55 2.57 13.9 2.76 ...</span></span>
+<span id="cb1-47"><a href="#cb1-47"></a><span class="co">##  $ Y : num  0.8 2.4 0.5 1.9 0.8 1.6 0.5 1.8 1.7 0.4 ...</span></span>
+<span id="cb1-48"><a href="#cb1-48"></a><span class="co">##  $ Zn: num  59.1 18.1 67.6 43.3 41.4 46 103 21.5 23.2 38.5 ...</span></span>
+<span id="cb1-49"><a href="#cb1-49"></a><span class="co">##  $ C : num  39.9 47.5 44.2 19.4 45.8 47.8 45.7 47.3 29.5 46.8 ...</span></span>
+<span id="cb1-50"><a href="#cb1-50"></a><span class="co">##  $ H : num  5.5 6.8 6.3 3 6.1 5.8 6.5 6.4 4.4 6.5 ...</span></span>
+<span id="cb1-51"><a href="#cb1-51"></a><span class="co">##  $ N : num  1.2 1.5 1.5 0.7 1.5 1.3 1.7 1.5 0.7 1 ...</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a><span class="co">##  $ pH: num  3.9 4.1 3.8 4 4.1 3.7 4 4.2 4 3.6 ...</span></span>
 <span id="cb1-53"><a href="#cb1-53"></a></span>
-<span id="cb1-54"><a href="#cb1-54"></a><span class="co"># initiate an isolation forest</span></span>
-<span id="cb1-55"><a href="#cb1-55"></a>iso =<span class="st"> </span>isolationForest<span class="op">$</span><span class="kw">new</span>(<span class="dt">sample_size =</span> <span class="kw">length</span>(index))</span>
+<span id="cb1-54"><a href="#cb1-54"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-55"><a href="#cb1-55"></a>index =<span class="st"> </span><span class="kw">sample</span>(<span class="kw">ceiling</span>(<span class="kw">nrow</span>(humus2) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>))</span>
 <span id="cb1-56"><a href="#cb1-56"></a></span>
-<span id="cb1-57"><a href="#cb1-57"></a><span class="co"># fit for attrition data</span></span>
-<span id="cb1-58"><a href="#cb1-58"></a>iso<span class="op">$</span><span class="kw">fit</span>(humus2[index, ])</span>
-<span id="cb1-59"><a href="#cb1-59"></a></span>
-<span id="cb1-60"><a href="#cb1-60"></a><span class="co">## INFO  [23:24:08.666] Building Isolation Forest ...  </span></span>
-<span id="cb1-61"><a href="#cb1-61"></a><span class="co">## INFO  [23:24:08.876] done </span></span>
-<span id="cb1-62"><a href="#cb1-62"></a><span class="co">## INFO  [23:24:08.885] Computing depth of terminal nodes ...  </span></span>
-<span id="cb1-63"><a href="#cb1-63"></a><span class="co">## INFO  [23:24:09.300] done </span></span>
-<span id="cb1-64"><a href="#cb1-64"></a><span class="co">## INFO  [23:24:09.373] Completed growing isolation forest</span></span>
-<span id="cb1-65"><a href="#cb1-65"></a></span>
-<span id="cb1-66"><a href="#cb1-66"></a><span class="co"># Obtain anomaly scores</span></span>
-<span id="cb1-67"><a href="#cb1-67"></a>scores_train =<span class="st"> </span>iso<span class="op">$</span><span class="kw">predict</span>(humus2[index, ])</span>
-<span id="cb1-68"><a href="#cb1-68"></a>scores_train[<span class="kw">order</span>(anomaly_score, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)]</span>
-<span id="cb1-69"><a href="#cb1-69"></a></span>
-<span id="cb1-70"><a href="#cb1-70"></a><span class="co">##       id average_depth anomaly_score</span></span>
-<span id="cb1-71"><a href="#cb1-71"></a><span class="co">##   1: 169          4.99     0.7220550</span></span>
-<span id="cb1-72"><a href="#cb1-72"></a><span class="co">##   2: 309          6.87     0.6386842</span></span>
-<span id="cb1-73"><a href="#cb1-73"></a><span class="co">##   3: 167          7.21     0.6246686</span></span>
-<span id="cb1-74"><a href="#cb1-74"></a><span class="co">##   4: 103          7.75     0.6030379</span></span>
-<span id="cb1-75"><a href="#cb1-75"></a><span class="co">##   5: 106          8.15     0.5874996</span></span>
-<span id="cb1-76"><a href="#cb1-76"></a><span class="co">##  ---                                </span></span>
-<span id="cb1-77"><a href="#cb1-77"></a><span class="co">## 305:  81         21.70     0.2426414</span></span>
-<span id="cb1-78"><a href="#cb1-78"></a><span class="co">## 306: 175         21.73     0.2421669</span></span>
-<span id="cb1-79"><a href="#cb1-79"></a><span class="co">## 307: 112         21.75     0.2418510</span></span>
-<span id="cb1-80"><a href="#cb1-80"></a><span class="co">## 308: 155         21.88     0.2398078</span></span>
-<span id="cb1-81"><a href="#cb1-81"></a><span class="co">## 309: 174         22.00     0.2379371</span></span>
-<span id="cb1-82"><a href="#cb1-82"></a></span>
-<span id="cb1-83"><a href="#cb1-83"></a><span class="co"># predict scores for unseen data (50% sample)</span></span>
-<span id="cb1-84"><a href="#cb1-84"></a>scores_unseen =<span class="st"> </span>iso<span class="op">$</span><span class="kw">predict</span>(humus2[<span class="op">-</span>index, ])</span>
-<span id="cb1-85"><a href="#cb1-85"></a>scores_unseen[<span class="kw">order</span>(anomaly_score, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)]</span>
-<span id="cb1-86"><a href="#cb1-86"></a></span>
-<span id="cb1-87"><a href="#cb1-87"></a><span class="co">##       id average_depth anomaly_score</span></span>
-<span id="cb1-88"><a href="#cb1-88"></a><span class="co">##   1: 178          7.17     0.6263014</span></span>
-<span id="cb1-89"><a href="#cb1-89"></a><span class="co">##   2: 260          8.61     0.5701249</span></span>
-<span id="cb1-90"><a href="#cb1-90"></a><span class="co">##   3: 271          8.81     0.5627318</span></span>
-<span id="cb1-91"><a href="#cb1-91"></a><span class="co">##   4: 306          9.06     0.5536251</span></span>
-<span id="cb1-92"><a href="#cb1-92"></a><span class="co">##   5:  81          9.24     0.5471597</span></span>
-<span id="cb1-93"><a href="#cb1-93"></a><span class="co">##  ---                                </span></span>
-<span id="cb1-94"><a href="#cb1-94"></a><span class="co">## 304: 266         21.70     0.2426414</span></span>
-<span id="cb1-95"><a href="#cb1-95"></a><span class="co">## 305: 282         21.72     0.2423249</span></span>
-<span id="cb1-96"><a href="#cb1-96"></a><span class="co">## 306:  55         22.25     0.2340866</span></span>
-<span id="cb1-97"><a href="#cb1-97"></a><span class="co">## 307:  51         22.41     0.2316550</span></span>
-<span id="cb1-98"><a href="#cb1-98"></a><span class="co">## 308:  10         22.84     0.2252446</span></span></code></pre></div>
+<span id="cb1-57"><a href="#cb1-57"></a><span class="co"># initiate an isolation forest</span></span>
+<span id="cb1-58"><a href="#cb1-58"></a>iso =<span class="st"> </span>isolationForest<span class="op">$</span><span class="kw">new</span>(<span class="dt">sample_size =</span> <span class="kw">length</span>(index))</span>
+<span id="cb1-59"><a href="#cb1-59"></a><span class="co"># fit for attrition data</span></span>
+<span id="cb1-60"><a href="#cb1-60"></a>iso<span class="op">$</span><span class="kw">fit</span>(humus2[index, ])</span>
+<span id="cb1-61"><a href="#cb1-61"></a></span>
+<span id="cb1-62"><a href="#cb1-62"></a><span class="co">## INFO  [09:21:53.557] Building Isolation Forest ...  </span></span>
+<span id="cb1-63"><a href="#cb1-63"></a><span class="co">## INFO  [09:21:53.663] done </span></span>
+<span id="cb1-64"><a href="#cb1-64"></a><span class="co">## INFO  [09:21:53.672] Computing depth of terminal nodes ...  </span></span>
+<span id="cb1-65"><a href="#cb1-65"></a><span class="co">## INFO  [09:21:54.054] done </span></span>
+<span id="cb1-66"><a href="#cb1-66"></a><span class="co">## INFO  [09:21:54.070] Completed growing isolation forest</span></span>
+<span id="cb1-67"><a href="#cb1-67"></a></span>
+<span id="cb1-68"><a href="#cb1-68"></a><span class="co"># Obtain anomaly scores</span></span>
+<span id="cb1-69"><a href="#cb1-69"></a>scores_train =<span class="st"> </span>iso<span class="op">$</span><span class="kw">predict</span>(humus2[index, ])</span>
+<span id="cb1-70"><a href="#cb1-70"></a>scores_train[<span class="kw">order</span>(anomaly_score, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)]</span>
+<span id="cb1-71"><a href="#cb1-71"></a></span>
+<span id="cb1-72"><a href="#cb1-72"></a><span class="co">##       id average_depth anomaly_score</span></span>
+<span id="cb1-73"><a href="#cb1-73"></a><span class="co">##   1: 169          4.91     0.7258347</span></span>
+<span id="cb1-74"><a href="#cb1-74"></a><span class="co">##   2: 309          6.07     0.6729151</span></span>
+<span id="cb1-75"><a href="#cb1-75"></a><span class="co">##   3: 167          6.34     0.6611618</span></span>
+<span id="cb1-76"><a href="#cb1-76"></a><span class="co">##   4: 106          6.67     0.6470751</span></span>
+<span id="cb1-77"><a href="#cb1-77"></a><span class="co">##   5: 103          6.75     0.6437056</span></span>
+<span id="cb1-78"><a href="#cb1-78"></a><span class="co">##  ---                                </span></span>
+<span id="cb1-79"><a href="#cb1-79"></a><span class="co">## 305: 285          9.00     0.5557972</span></span>
+<span id="cb1-80"><a href="#cb1-80"></a><span class="co">## 306: 286          9.00     0.5557972</span></span>
+<span id="cb1-81"><a href="#cb1-81"></a><span class="co">## 307: 296          9.00     0.5557972</span></span>
+<span id="cb1-82"><a href="#cb1-82"></a><span class="co">## 308: 301          9.00     0.5557972</span></span>
+<span id="cb1-83"><a href="#cb1-83"></a><span class="co">## 309: 306          9.00     0.5557972</span></span>
+<span id="cb1-84"><a href="#cb1-84"></a></span>
+<span id="cb1-85"><a href="#cb1-85"></a><span class="co"># predict scores for unseen data (50% sample)</span></span>
+<span id="cb1-86"><a href="#cb1-86"></a>scores_unseen =<span class="st"> </span>iso<span class="op">$</span><span class="kw">predict</span>(humus2[<span class="op">-</span>index, ])</span>
+<span id="cb1-87"><a href="#cb1-87"></a>scores_unseen[<span class="kw">order</span>(anomaly_score, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)]</span>
+<span id="cb1-88"><a href="#cb1-88"></a></span>
+<span id="cb1-89"><a href="#cb1-89"></a><span class="co">##       id average_depth anomaly_score</span></span>
+<span id="cb1-90"><a href="#cb1-90"></a><span class="co">##   1: 178          6.71     0.6453881</span></span>
+<span id="cb1-91"><a href="#cb1-91"></a><span class="co">##   2: 306          6.77     0.6428659</span></span>
+<span id="cb1-92"><a href="#cb1-92"></a><span class="co">##   3: 260          7.19     0.6254844</span></span>
+<span id="cb1-93"><a href="#cb1-93"></a><span class="co">##   4: 140          7.42     0.6161660</span></span>
+<span id="cb1-94"><a href="#cb1-94"></a><span class="co">##   5: 270          7.42     0.6161660</span></span>
+<span id="cb1-95"><a href="#cb1-95"></a><span class="co">##  ---                                </span></span>
+<span id="cb1-96"><a href="#cb1-96"></a><span class="co">## 304: 282          9.00     0.5557972</span></span>
+<span id="cb1-97"><a href="#cb1-97"></a><span class="co">## 305: 285          9.00     0.5557972</span></span>
+<span id="cb1-98"><a href="#cb1-98"></a><span class="co">## 306: 293          9.00     0.5557972</span></span>
+<span id="cb1-99"><a href="#cb1-99"></a><span class="co">## 307: 295          9.00     0.5557972</span></span>
+<span id="cb1-100"><a href="#cb1-100"></a><span class="co">## 308: 302          9.00     0.5557972</span></span></code></pre></div>
 </div>
 <div id="anomaly-detection" class="section level2">
 <h2 class="hasAnchor">
@@ -195,9 +197,9 @@
 <span id="cb2-4"><a href="#cb2-4"></a>         )</span>
 <span id="cb2-5"><a href="#cb2-5"></a></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="co">##       50%       55%       60%       65%       70%       75%       80%       85% </span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">## 0.3312529 0.3386517 0.3449757 0.3552106 0.3702403 0.3819597 0.4041027 0.4294298 </span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">## 0.5588889 0.5598015 0.5617045 0.5633013 0.5653084 0.5675263 0.5712422 0.5793897 </span></span>
 <span id="cb2-8"><a href="#cb2-8"></a><span class="co">##       90%       95%      100% </span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">## 0.4620689 0.5100618 0.6263014</span></span></code></pre></div>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">## 0.5889971 0.6012725 0.6453881</span></span></code></pre></div>
 <p>The understanding of <em>why is an observation an anomaly</em> might require a combination of domain understanding and techniques like lime (Local Interpretable Model-agnostic Explanations), Rule based systems etc</p>
 </div>
 <div id="installation" class="section level2">

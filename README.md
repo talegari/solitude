@@ -21,6 +21,9 @@ Usage
 -----
 
     library("solitude")
+    packageVersion("solitude")
+
+    ## [1] '1.1.0'
 
     data("humus", package = "mvoutlier")
     columns_required = setdiff(colnames(humus)
@@ -75,49 +78,48 @@ Usage
 
     # initiate an isolation forest
     iso = isolationForest$new(sample_size = length(index))
-
     # fit for attrition data
     iso$fit(humus2[index, ])
 
-    ## INFO  [23:24:08.666] Building Isolation Forest ...  
-    ## INFO  [23:24:08.876] done 
-    ## INFO  [23:24:08.885] Computing depth of terminal nodes ...  
-    ## INFO  [23:24:09.300] done 
-    ## INFO  [23:24:09.373] Completed growing isolation forest
+    ## INFO  [09:21:53.557] Building Isolation Forest ...  
+    ## INFO  [09:21:53.663] done 
+    ## INFO  [09:21:53.672] Computing depth of terminal nodes ...  
+    ## INFO  [09:21:54.054] done 
+    ## INFO  [09:21:54.070] Completed growing isolation forest
 
     # Obtain anomaly scores
     scores_train = iso$predict(humus2[index, ])
     scores_train[order(anomaly_score, decreasing = TRUE)]
 
     ##       id average_depth anomaly_score
-    ##   1: 169          4.99     0.7220550
-    ##   2: 309          6.87     0.6386842
-    ##   3: 167          7.21     0.6246686
-    ##   4: 103          7.75     0.6030379
-    ##   5: 106          8.15     0.5874996
+    ##   1: 169          4.91     0.7258347
+    ##   2: 309          6.07     0.6729151
+    ##   3: 167          6.34     0.6611618
+    ##   4: 106          6.67     0.6470751
+    ##   5: 103          6.75     0.6437056
     ##  ---                                
-    ## 305:  81         21.70     0.2426414
-    ## 306: 175         21.73     0.2421669
-    ## 307: 112         21.75     0.2418510
-    ## 308: 155         21.88     0.2398078
-    ## 309: 174         22.00     0.2379371
+    ## 305: 285          9.00     0.5557972
+    ## 306: 286          9.00     0.5557972
+    ## 307: 296          9.00     0.5557972
+    ## 308: 301          9.00     0.5557972
+    ## 309: 306          9.00     0.5557972
 
     # predict scores for unseen data (50% sample)
     scores_unseen = iso$predict(humus2[-index, ])
     scores_unseen[order(anomaly_score, decreasing = TRUE)]
 
     ##       id average_depth anomaly_score
-    ##   1: 178          7.17     0.6263014
-    ##   2: 260          8.61     0.5701249
-    ##   3: 271          8.81     0.5627318
-    ##   4: 306          9.06     0.5536251
-    ##   5:  81          9.24     0.5471597
+    ##   1: 178          6.71     0.6453881
+    ##   2: 306          6.77     0.6428659
+    ##   3: 260          7.19     0.6254844
+    ##   4: 140          7.42     0.6161660
+    ##   5: 270          7.42     0.6161660
     ##  ---                                
-    ## 304: 266         21.70     0.2426414
-    ## 305: 282         21.72     0.2423249
-    ## 306:  55         22.25     0.2340866
-    ## 307:  51         22.41     0.2316550
-    ## 308:  10         22.84     0.2252446
+    ## 304: 282          9.00     0.5557972
+    ## 305: 285          9.00     0.5557972
+    ## 306: 293          9.00     0.5557972
+    ## 307: 295          9.00     0.5557972
+    ## 308: 302          9.00     0.5557972
 
 Anomaly detection
 -----------------
@@ -135,9 +137,9 @@ anomaly scores and investigate the outlier suspects.
              )
 
     ##       50%       55%       60%       65%       70%       75%       80%       85% 
-    ## 0.3312529 0.3386517 0.3449757 0.3552106 0.3702403 0.3819597 0.4041027 0.4294298 
+    ## 0.5588889 0.5598015 0.5617045 0.5633013 0.5653084 0.5675263 0.5712422 0.5793897 
     ##       90%       95%      100% 
-    ## 0.4620689 0.5100618 0.6263014
+    ## 0.5889971 0.6012725 0.6453881
 
 The understanding of *why is an observation an anomaly* might require a
 combination of domain understanding and techniques like lime (Local
