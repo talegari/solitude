@@ -10,8 +10,8 @@ Introduction
 
 The R package implements **Isolation forest**, an anomaly detection
 method introduced by the paper Isolation based Anomaly Detection ([Liu,
-Ting and Zhou](https://dl.acm.org/citation.cfm?id=2133363)). Isolation
-forest is grown using
+Ting and Zhou](https://dl.acm.org/doi/10.1145/2133360.2133363)).
+Isolation forest is grown using
 [ranger](https://cran.r-project.org/package=ranger) package.
 
 ‘Isolation forest’ is a multivariate outlier detection technique for IID
@@ -23,7 +23,7 @@ Usage
     library("solitude")
     packageVersion("solitude")
 
-    ## [1] '1.1.0'
+    ## [1] '1.1.1'
 
     data("humus", package = "mvoutlier")
     columns_required = setdiff(colnames(humus)
@@ -81,11 +81,11 @@ Usage
     # fit for attrition data
     iso$fit(humus2[index, ])
 
-    ## INFO  [22:04:48.159] Building Isolation Forest ...  
-    ## INFO  [22:04:48.273] done 
-    ## INFO  [22:04:48.283] Computing depth of terminal nodes ...  
-    ## INFO  [22:04:48.694] done 
-    ## INFO  [22:04:48.710] Completed growing isolation forest
+    ## INFO  [15:10:47.286] Building Isolation Forest ...  
+    ## INFO  [15:10:47.394] done 
+    ## INFO  [15:10:47.403] Computing depth of terminal nodes ...  
+    ## INFO  [15:10:47.816] done 
+    ## INFO  [15:10:47.831] Completed growing isolation forest
 
     # Obtain anomaly scores
     scores_train = iso$predict(humus2[index, ])
