@@ -81,11 +81,11 @@ Usage
     # fit for attrition data
     iso$fit(humus2[index, ])
 
-    ## INFO  [09:21:53.557] Building Isolation Forest ...  
-    ## INFO  [09:21:53.663] done 
-    ## INFO  [09:21:53.672] Computing depth of terminal nodes ...  
-    ## INFO  [09:21:54.054] done 
-    ## INFO  [09:21:54.070] Completed growing isolation forest
+    ## INFO  [22:04:48.159] Building Isolation Forest ...  
+    ## INFO  [22:04:48.273] done 
+    ## INFO  [22:04:48.283] Computing depth of terminal nodes ...  
+    ## INFO  [22:04:48.694] done 
+    ## INFO  [22:04:48.710] Completed growing isolation forest
 
     # Obtain anomaly scores
     scores_train = iso$predict(humus2[index, ])

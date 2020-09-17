@@ -1,3 +1,7 @@
+# solitude 1.1.1
+
+- fit gives a message when input dataset has duplicate and does not throw an error
+
 # solitude 1.1.0
 
 - fit exposes max_depth parameter with default value of ceiling(log_2(sample_size))

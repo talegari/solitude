@@ -139,14 +139,14 @@ isolationForest = R6::R6Class(
       self$nproc                     = nproc
       self$respect_unordered_factors = respect_unordered_factors
       self$max_depth                 = max_depth
-      self$status = "not_trained"
+      self$status                    = "not_trained"
     }
     ,
     fit = function(dataset){
 
       # check if any rows are duplicated
       if (anyDuplicated(dataset) > 0){
-        stop("dataset should not have duplicated rows")
+        lgr::lgr$info("dataset has duplicated rows")
       }
 
       # create new fit
