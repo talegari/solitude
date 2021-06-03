@@ -35,7 +35,7 @@
 #'
 #'   }
 #'
-#'   \code{$fit()} fits a isolation forest for the given dataframe, computes
+#'   \code{$fit()} fits a isolation forest for the given dataframe or sparse matrix, computes
 #'   depths of terminal nodes of each tree and stores the anomaly scores and
 #'   average depth values in \code{$scores} object as a data.table
 #'
@@ -144,8 +144,11 @@ isolationForest = R6::R6Class(
     ,
     fit = function(dataset){
 
+      is_sparse = grepl("dg.Matrix", class(dataset)[[1]])
       # check if any rows are duplicated
-      if (anyDuplicated(dataset) > 0){
+      if (is_sparse) {
+        lgr::lgr$info("sparse dataset detected, skipping duplication check")
+      } else if (anyDuplicated(dataset) > 0) {
         lgr::lgr$info("dataset has duplicated rows")
       }
 
@@ -158,12 +161,9 @@ isolationForest = R6::R6Class(
       # create a new 'y' column with jumbled 1:n
       columnNames  = colnames(dataset)
       nr           = nrow(dataset)
-      responseName = columnNames[[1]]
-      while(deparse(substitute(responseName)) %in% columnNames){
-        responseName = sample(c(letters, LETTERS), 20, replace = TRUE)
-      }
+
       set.seed(self$seed)
-      dataset[[deparse(substitute(responseName))]] = sample.int(nrow(dataset))
+      yy = sample.int(nrow(dataset))
 
       # deduce sample_fraction
       stopifnot(self$sample_size <= nr)
@@ -172,8 +172,8 @@ isolationForest = R6::R6Class(
       # build a extratrees forest
       lgr::lgr$info("Building Isolation Forest ... ")
       self$forest = ranger::ranger(
-        dependent.variable.name     = deparse(substitute(responseName))
-        , data                      = dataset
+        x = dataset
+        , y = yy
         , mtry                      = ncol(dataset) - 1L
         , min.node.size             = 1L
         , splitrule                 = "extratrees"
