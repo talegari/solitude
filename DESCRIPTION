@@ -1,8 +1,11 @@
 Package: solitude
 Type: Package
 Title: An Implementation of Isolation Forest
-Version: 1.1.1
-Authors@R: person("Komala Sheshachala", "Srikanth", email = "sri.teach@gmail.com", role = c("aut", "cre"))
+Version: 1.1.2
+Authors@R: c(
+    person("Komala Sheshachala", "Srikanth", email = "sri.teach@gmail.com", role = c("aut", "cre"),
+    person("David", "Zimmermann", email = "david_j_zimmermann@hotmail.com", role = "ctb")
+    )
 Description: Isolation forest is anomaly detection method introduced by the paper Isolation based Anomaly Detection (Liu, Ting and Zhou <doi:10.1145/2133360.2133363>).
 URL: https://github.com/talegari/solitude
 BugReports: https://github.com/talegari/solitude/issues
@@ -16,7 +19,7 @@ Imports:
 Depends:
     R (>= 3.5.0),
 Suggests:
-    mvoutlier (>= 2.0.9),
+    mvoutlier (>= 2.0.9), Matrix
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.1.1

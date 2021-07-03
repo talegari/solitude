@@ -41,7 +41,7 @@
 
   }
 
-  \code{$fit()} fits a isolation forest for the given dataframe, computes
+  \code{$fit()} fits a isolation forest for the given dataframe or sparse matrix, computes
   depths of terminal nodes of each tree and stores the anomaly scores and
   average depth values in \code{$scores} object as a data.table
 
