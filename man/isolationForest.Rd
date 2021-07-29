@@ -63,19 +63,50 @@
 }
 
 \examples{
-data("humus", package = "mvoutlier")
-columns_required = setdiff(colnames(humus)
-                           , c("Cond", "ID", "XCOO", "YCOO", "LOI")
-                           )
-humus2 = humus[ , columns_required]
-str(humus2)
-set.seed(1)
-index = sample(ceiling(nrow(humus2) * 0.5))
-# initiate an isolation forest
-iso = isolationForest$new(sample_size = length(index))
-iso$fit(dataset = humus2[index, ])
-iso$predict(humus2[index, ]) # scores for train data
-iso$predict(humus2[-index, ]) # scores for new data (50\% sample)
+\dontrun{
+library("solitude")
+library("tidyverse")
+library("mlbench")
+
+data(PimaIndiansDiabetes)
+PimaIndiansDiabetes = as_tibble(PimaIndiansDiabetes)
+PimaIndiansDiabetes
+
+splitter   = PimaIndiansDiabetes \%>\%
+  select(-diabetes) \%>\%
+  rsample::initial_split(prop = 0.5)
+pima_train = rsample::training(splitter)
+pima_test  = rsample::testing(splitter)
+
+iso = isolationForest$new()
+iso$fit(pima_train)
+
+scores_train = pima_train \%>\%
+  iso$predict() \%>\%
+  arrange(desc(anomaly_score))
+
+scores_train
+
+umap_train = pima_train \%>\%
+  scale() \%>\%
+  uwot::umap() \%>\%
+  setNames(c("V1", "V2")) \%>\%
+  as_tibble() \%>\%
+  rowid_to_column() \%>\%
+  left_join(scores_train, by = c("rowid" = "id"))
+
+umap_train
+
+umap_train \%>\%
+  ggplot(aes(V1, V2)) +
+  geom_point(aes(size = anomaly_score))
+
+scores_test = pima_test \%>\%
+  iso$predict() \%>\%
+  arrange(desc(anomaly_score))
+
+scores_test
+}
 }
 \section{Methods}{
 \subsection{Public methods}{

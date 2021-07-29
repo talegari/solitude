@@ -1,3 +1,7 @@
+# solitude 1.1.3
+
+- adds support to sparse matrix input in the form of dgCMatrix
+
 # solitude 1.1.1
 
 - fit gives a message when input dataset has duplicate and does not throw an error
