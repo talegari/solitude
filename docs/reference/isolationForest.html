@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">solitude</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,7 +98,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/talegari/solitude/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -153,7 +153,7 @@
   <code><a href='https://rdrr.io/pkg/ranger/man/ranger.html'>ranger</a></code></p></li>
 </ul>
 
-<p><code>$fit()</code> fits a isolation forest for the given dataframe, computes
+<p><code>$fit()</code> fits a isolation forest for the given dataframe or sparse matrix, computes
   depths of terminal nodes of each tree and stores the anomaly scores and
   average depth values in <code>$scores</code> object as a data.table</p>
 <p><code>$predict()</code> returns anomaly scores for a new data as a data.table</p>
@@ -173,7 +173,7 @@
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-new'><code>isolationForest$new()</code></a></p></li>
@@ -182,38 +182,38 @@
 <li><p><a href='#method-clone'><code>isolationForest$clone()</code></a></p></li>
 </ul>
 <p><hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>isolationForest</span>$<span class='fu'>new</span>(
-  <span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='fl'>256</span>,
-  <span class='kw'>num_trees</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>101</span>,
-  <span class='kw'>nproc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>respect_unordered_factors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>max_depth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log2</a></span>(<span class='no'>sample_size</span>))
-)</pre><p></div></p>
-
-<p><hr>
-<a id="method-fit"></a></p><h3>Method <code>fit()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>isolationForest</span>$<span class='fu'>fit</span>(<span class='no'>dataset</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>isolationForest</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span>
+  sample_size <span class='op'>=</span> <span class='fl'>256</span>,
+  num_trees <span class='op'>=</span> <span class='fl'>100</span>,
+  replace <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  seed <span class='op'>=</span> <span class='fl'>101</span>,
+  nproc <span class='op'>=</span> <span class='cn'>NULL</span>,
+  respect_unordered_factors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  max_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log2</a></span><span class='op'>(</span><span class='va'>sample_size</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-predict"></a></p><h3>Method <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code></h3>
+<a id="method-fit"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fit()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>isolationForest</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>data</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>isolationForest</span><span class='op'>$</span><span class='fu'>fit</span><span class='op'>(</span><span class='va'>dataset</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>isolationForest</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
+<a id="method-predict"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code></h3>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>isolationForest</span><span class='op'>$</span><span class='fu'>predict</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>isolationForest</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -221,81 +221,51 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"humus"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"mvoutlier"</span>)
-<span class='no'>columns_required</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sets.html'>setdiff</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>humus</span>)
-                           , <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Cond"</span>, <span class='st'>"ID"</span>, <span class='st'>"XCOO"</span>, <span class='st'>"YCOO"</span>, <span class='st'>"LOI"</span>)
-                           )
-<span class='no'>humus2</span> <span class='kw'>=</span> <span class='no'>humus</span>[ , <span class='no'>columns_required</span>]
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>humus2</span>)</div><div class='output co'>#&gt; 'data.frame':	617 obs. of  39 variables:
-#&gt;  $ Ag: num  0.124 0.13 0.124 0.309 0.04 0.421 0.235 0.043 0.07 0.086 ...
-#&gt;  $ Al: num  1420 7190 1970 6360 630 2060 1200 1510 3380 1320 ...
-#&gt;  $ As: num  0.743 0.973 1.1 1.24 0.533 1.54 0.836 0.657 1.75 1.04 ...
-#&gt;  $ B : num  2.51 3.45 1.62 1.59 4.33 1.93 2.51 4.46 5.08 2.1 ...
-#&gt;  $ Ba: num  74 65.2 121 63.5 36 111 109 24.5 42.2 51.4 ...
-#&gt;  $ Be: num  0.02 0.08 0.04 0.07 0.01 0.07 0.01 0.05 0.06 0.01 ...
-#&gt;  $ Bi: num  0.108 0.084 0.137 0.135 0.076 0.176 0.145 0.075 0.259 0.112 ...
-#&gt;  $ Ca: num  3900 1900 3240 2470 3500 3340 3010 3090 1760 2810 ...
-#&gt;  $ Cd: num  0.298 0.39 0.295 0.222 0.214 0.327 0.294 0.18 0.295 0.284 ...
-#&gt;  $ Co: num  1.28 3.37 0.98 3.91 0.43 4.61 0.75 0.55 1.68 1.12 ...
-#&gt;  $ Cr: num  3.04 2.02 1.33 17 0.79 3.78 2.01 1.63 10.9 1.71 ...
-#&gt;  $ Cu: num  10.9 12.3 5.59 29.8 6.23 47.3 8.66 5.55 10 9.25 ...
-#&gt;  $ Fe: num  2050 3170 1100 6180 790 3370 1150 1800 4820 970 ...
-#&gt;  $ Hg: num  0.155 0.263 0.168 0.175 0.197 0.239 0.233 0.217 0.238 0.229 ...
-#&gt;  $ K : num  1100 900 1000 900 700 1200 1000 600 800 1000 ...
-#&gt;  $ La: num  2.3 6.4 1.7 5.3 1.2 7 1.5 2.9 6.3 1.2 ...
-#&gt;  $ Mg: num  820 670 790 1180 1770 800 660 1750 820 570 ...
-#&gt;  $ Mn: num  202 22.8 70.3 118 24.4 86.1 1210 16.7 39.2 115 ...
-#&gt;  $ Mo: num  0.662 0.286 0.166 0.28 0.248 0.473 0.185 0.372 0.277 0.15 ...
-#&gt;  $ Na: num  40 120 30 150 410 60 10 320 110 50 ...
-#&gt;  $ Ni: num  9.41 14.8 5.05 59.5 1.98 78 5.7 2.19 11.7 13.2 ...
-#&gt;  $ P : num  743 1030 922 717 795 942 1120 790 779 745 ...
-#&gt;  $ Pb: num  15.9 13.9 19 16.3 14.3 21.7 15.2 11.6 284 14.1 ...
-#&gt;  $ Rb: num  8.14 2.82 4.45 8.13 2.67 5.23 4.94 2.33 4.07 5.35 ...
-#&gt;  $ S : num  1300 1950 1750 965 1860 1410 1880 2210 1260 1250 ...
-#&gt;  $ Sb: num  0.12 0.161 0.25 0.017 0.169 0.217 0.189 0.126 0.809 0.202 ...
-#&gt;  $ Sc: num  0.6 1.2 0.4 1.4 0.2 0.7 0.4 0.6 1.1 0.3 ...
-#&gt;  $ Si: num  630 640 580 690 440 530 650 490 630 560 ...
-#&gt;  $ Sr: num  22.2 34.4 43.4 29.2 46.4 67.9 20.7 59.1 28.8 23.2 ...
-#&gt;  $ Th: num  0.413 0.281 0.246 0.816 0.25 0.432 0.371 0.535 1.13 0.109 ...
-#&gt;  $ Tl: num  0.081 0.068 0.077 0.099 0.06 0.084 0.088 0.042 0.084 0.097 ...
-#&gt;  $ U : num  0.24 0.12 0.042 0.163 0.127 0.112 0.051 0.265 0.221 0.031 ...
-#&gt;  $ V : num  6.79 3.89 2.86 16.1 1.63 7.4 3.55 2.57 13.9 2.76 ...
-#&gt;  $ Y : num  0.8 2.4 0.5 1.9 0.8 1.6 0.5 1.8 1.7 0.4 ...
-#&gt;  $ Zn: num  59.1 18.1 67.6 43.3 41.4 46 103 21.5 23.2 38.5 ...
-#&gt;  $ C : num  39.9 47.5 44.2 19.4 45.8 47.8 45.7 47.3 29.5 46.8 ...
-#&gt;  $ H : num  5.5 6.8 6.3 3 6.1 5.8 6.5 6.4 4.4 6.5 ...
-#&gt;  $ N : num  1.2 1.5 1.5 0.7 1.5 1.3 1.7 1.5 0.7 1 ...
-#&gt;  $ pH: num  3.9 4.1 3.8 4 4.1 3.7 4 4.2 4 3.6 ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='no'>index</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>humus2</span>) * <span class='fl'>0.5</span>))
-<span class='co'># initiate an isolation forest</span>
-<span class='no'>iso</span> <span class='kw'>=</span> <span class='no'>isolationForest</span>$<span class='fu'>new</span>(<span class='kw'>sample_size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>index</span>))
-<span class='no'>iso</span>$<span class='fu'>fit</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>humus2</span>[<span class='no'>index</span>, ])</div><div class='output co'>#&gt; INFO  [09:23:34.970] Building Isolation Forest ...  
-#&gt; INFO  [09:23:35.313] done 
-#&gt; INFO  [09:23:35.323] Computing depth of terminal nodes ...  
-#&gt; INFO  [09:23:35.730] done 
-#&gt; INFO  [09:23:35.749] Completed growing isolation forest </div><div class='input'><span class='no'>iso</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>humus2</span>[<span class='no'>index</span>, ]) <span class='co'># scores for train data</span></div><div class='output co'>#&gt;       id average_depth anomaly_score
-#&gt;   1:   1          8.78     0.5638346
-#&gt;   2:   2          8.99     0.5561600
-#&gt;   3:   3          8.68     0.5675263
-#&gt;   4:   4          8.81     0.5627318
-#&gt;   5:   5          8.98     0.5565231
-#&gt;  ---                                
-#&gt; 305: 305          8.99     0.5561600
-#&gt; 306: 306          9.00     0.5557972
-#&gt; 307: 307          8.99     0.5561600
-#&gt; 308: 308          7.27     0.6222274
-#&gt; 309: 309          6.07     0.6729151</div><div class='input'><span class='no'>iso</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>humus2</span>[-<span class='no'>index</span>, ]) <span class='co'># scores for new data (50% sample)</span></div><div class='output co'>#&gt;       id average_depth anomaly_score
-#&gt;   1:   1          8.25     0.5836780
-#&gt;   2:   2          8.23     0.5844403
-#&gt;   3:   3          8.81     0.5627318
-#&gt;   4:   4          8.57     0.5716151
-#&gt;   5:   5          8.92     0.5587066
-#&gt;  ---                                
-#&gt; 304: 304          7.95     0.5952181
-#&gt; 305: 305          8.81     0.5627318
-#&gt; 306: 306          6.77     0.6428659
-#&gt; 307: 307          8.94     0.5579778
-#&gt; 308: 308          8.77     0.5642027</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/talegari/solitude'>"solitude"</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://tidyverse.tidyverse.org'>"tidyverse"</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'>"mlbench"</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>PimaIndiansDiabetes</span><span class='op'>)</span>
+<span class='va'>PimaIndiansDiabetes</span> <span class='op'>=</span> <span class='fu'>as_tibble</span><span class='op'>(</span><span class='va'>PimaIndiansDiabetes</span><span class='op'>)</span>
+<span class='va'>PimaIndiansDiabetes</span>
+
+<span class='va'>splitter</span>   <span class='op'>=</span> <span class='va'>PimaIndiansDiabetes</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='va'>diabetes</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>rsample</span><span class='fu'>::</span><span class='fu'><a href='https://rsample.tidymodels.org/reference/initial_split.html'>initial_split</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
+<span class='va'>pima_train</span> <span class='op'>=</span> <span class='fu'>rsample</span><span class='fu'>::</span><span class='fu'><a href='https://rsample.tidymodels.org/reference/initial_split.html'>training</a></span><span class='op'>(</span><span class='va'>splitter</span><span class='op'>)</span>
+<span class='va'>pima_test</span>  <span class='op'>=</span> <span class='fu'>rsample</span><span class='fu'>::</span><span class='fu'><a href='https://rsample.tidymodels.org/reference/initial_split.html'>testing</a></span><span class='op'>(</span><span class='va'>splitter</span><span class='op'>)</span>
+
+<span class='va'>iso</span> <span class='op'>=</span> <span class='va'>isolationForest</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>iso</span><span class='op'>$</span><span class='fu'>fit</span><span class='op'>(</span><span class='va'>pima_train</span><span class='op'>)</span>
+
+<span class='va'>scores_train</span> <span class='op'>=</span> <span class='va'>pima_train</span> <span class='op'>%&gt;%</span>
+  <span class='va'>iso</span><span class='op'>$</span><span class='fu'>predict</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>arrange</span><span class='op'>(</span><span class='fu'>desc</span><span class='op'>(</span><span class='va'>anomaly_score</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>scores_train</span>
+
+<span class='va'>umap_train</span> <span class='op'>=</span> <span class='va'>pima_train</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>uwot</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/uwot/man/umap.html'>umap</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/setNames.html'>setNames</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"V1"</span>, <span class='st'>"V2"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>as_tibble</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>rowid_to_column</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>scores_train</span>, by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"rowid"</span> <span class='op'>=</span> <span class='st'>"id"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>umap_train</span>
+
+<span class='va'>umap_train</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>V1</span>, <span class='va'>V2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>anomaly_score</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>scores_test</span> <span class='op'>=</span> <span class='va'>pima_test</span> <span class='op'>%&gt;%</span>
+  <span class='va'>iso</span><span class='op'>$</span><span class='fu'>predict</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>arrange</span><span class='op'>(</span><span class='fu'>desc</span><span class='op'>(</span><span class='va'>anomaly_score</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>scores_test</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -311,7 +281,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
